@@ -1,0 +1,17 @@
+# Ignore node_modules and .env for backend
+backend/node_modules/
+backend/.env
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# VSCode settings
+.vscode/
+
+# Optional: Ignore frontend build output (if using a build tool)
+frontend/dist/
+frontend/build/
