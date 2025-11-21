@@ -1,6 +1,8 @@
 # TravelNest
 
-An interactive full-stack resort booking application. TravelNest includes an Express + MongoDB backend and a static frontend (HTML/CSS/JS) with a small admin React component. It supports user authentication, image uploads, bookings and Stripe payments.
+TravelNest is an interactive full-stack resort booking platform powered by Express and MongoDB with a modern HTML/CSS/JavaScript frontend. It lets users explore destinations, view detailed resort pages, and make secure bookings through Stripe payments. Each resort includes trusted YouTube vlog links for authentic visual insights and better decision-making. The platform supports user authentication, dynamic search, image uploads, and smooth page transitions. Admins can easily manage resorts and content through a built-in admin panel, ensuring a seamless booking experience.
+
+This unique feature sets TravelNest apart from typical resort booking platforms by giving users real, trusted visual reviews through YouTube vlogs—helping them experience the resort before they book.
 
 Features
 - Resort listing and details
