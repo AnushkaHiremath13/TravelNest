@@ -20,7 +20,9 @@ Quick install
 
 ```powershell
 git clone https://github.com/AnushkaHiremath13/TravelNest.git
-cd "D:\Projects\Tannu final project\minor-project2"
+cd TravelNest
+# Example local path used in this workspace:
+# cd "d:\Projects\minor_project1\minor-project"
 ```
 
 2. Install backend dependencies and frontend dependencies:
@@ -53,8 +55,9 @@ How it works (high level)
 	- Stripe integration is used for payment intent creation and payment processing.
 
 - Frontend:
-	- Static HTML/CSS/JS pages under `frontend/html` and `frontend/js` for the public site and admin UI.
-	- A small React admin component exists in `frontend/src` for forms and uploads.
+	- Public static HTML/CSS/JS pages are under `frontend/html`, `frontend/css`, and `frontend/js`.
+	- Admin UI static files live under `frontend/admin/html`, `frontend/admin/css`, and `frontend/admin/js`.
+	- A small React admin component exists in `frontend/src/components/` (e.g. `ResortForm.jsx`) for forms and uploads.
 
 Deployment notes
 - For hosting the backend: consider Render, Railway, Heroku, or an Azure App Service. Ensure `MONGODB_URI` and `STRIPE_SECRET_KEY` are set in the environment of the deployed service.
@@ -84,4 +87,4 @@ Contributing
 Acknowledgments
 - Built using Node.js, Express and MongoDB
 - Stripe for payments
-- Thanks to the open-source libraries used throughout the project
+
