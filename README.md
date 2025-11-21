@@ -58,10 +58,7 @@ How it works (high level)
 	- Public static HTML/CSS/JS pages are under `frontend/html`, `frontend/css`, and `frontend/js`.
 	- Admin UI static files live under `frontend/admin/html`, `frontend/admin/css`, and `frontend/admin/js`.
 	- A small React admin component exists in `frontend/src/components/` (e.g. `ResortForm.jsx`) for forms and uploads.
-
-Deployment notes
-- For hosting the backend: consider Render, Railway, Heroku, or an Azure App Service. Ensure `MONGODB_URI` and `STRIPE_SECRET_KEY` are set in the environment of the deployed service.
-- For a single-server deploy, configure Express to serve the frontend static files and host both backend and frontend from one service.
+	
 
 Large files
 - This repository uses Git LFS for large uploaded assets (images). When cloning, install Git LFS and run `git lfs install` so LFS files are pulled correctly.
