@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Package</title>
+  <link rel="stylesheet" href="../css/edit-package.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Edit Package</h2>
+    <form id="editPackageForm">
+      <input type="text" name="title" id="title" placeholder="Package Title" required />
+      <input type="number" name="price" id="price" placeholder="Price" required />
+      <input type="text" name="duration" id="duration" placeholder="Duration (e.g., 3 Days / 2 Nights)" required />
+      <input type="text" name="amenities" id="amenities" placeholder="Amenities (comma-separated)" required />
+      <textarea name="description" id="description" placeholder="Description" rows="4" required></textarea>
+      <button type="submit">Update Package</button>
+      <p id="statusMsg"></p>
+    </form>
+  </div>
+
+  <script src="../js/editpackage.js"></script>
+</body>
+</html>

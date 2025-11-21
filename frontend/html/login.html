@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Nest - Login</title>
+  <link rel="stylesheet" href="/frontend/css/login.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <div class="logo">
+        <i class="fas fa-plane-departure"></i>
+        Travel Nest
+      </div>
+      <h2>Welcome Back</h2>
+
+      <form class="login-form" id="loginForm">
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="email" id="email" placeholder="Email" required />
+          <div class="input-feedback"></div>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="password" placeholder="Password" required />
+          <i class="fas fa-eye-slash toggle-password"></i>
+          <div class="input-feedback"></div>
+        </div>
+
+        <div class="remember-forgot">
+          <label class="checkbox-container">
+            <input type="checkbox" id="rememberMe" />
+            <span class="checkmark"></span>
+            Remember me
+          </label>
+          <a href="/frontend/html/forgot-password.html" class="forgot-password">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">
+          <span class="btn-text">Login</span>
+          <div class="loading-spinner"></div>
+        </button>
+
+        <div class="divider" role="separator" aria-label="Or continue with social login">
+          <span class="divider-text">or continue with</span>
+        </div>
+
+        <div class="social-login">
+          <button type="button" class="google-btn">
+            <i class="fab fa-google"></i>
+            <span>Google</span>
+          </button>
+          <button type="button" class="facebook-btn">
+            <i class="fab fa-facebook-f"></i>
+            <span>Facebook</span>
+          </button>
+        </div>
+
+        <p class="signup-link">
+          Don't have an account? <a href="/frontend/html/signup.html" class="signup-animation">Sign up</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const rememberCheckbox = document.getElementById('rememberMe');
+    const loginBtn = document.querySelector('.login-btn');
+    const togglePassword = document.querySelector('.toggle-password');
+    const socialButtons = document.querySelectorAll('.social-login button');
+
+    const STORAGE_KEYS = {
+      EMAIL: 'travelNestEmail',
+      REMEMBER: 'travelNestRemember'
+    };
+
+    function initializeForm() {
+      const savedEmail = localStorage.getItem(STORAGE_KEYS.EMAIL);
+      const savedRemember = localStorage.getItem(STORAGE_KEYS.REMEMBER) === 'true';
+
+      if (savedEmail && savedRemember) {
+        emailInput.value = savedEmail;
+        rememberCheckbox.checked = true;
+      }
+    }
+
+    function validateInput(input, type) {
+      const feedback = input.parentElement.querySelector('.input-feedback');
+      const value = input.value.trim();
+
+      if (type === 'email' && !value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        showError(input, feedback, 'Enter a valid email');
+        return false;
+      }
+
+      if (type === 'password' && value.length < 6) {
+        showError(input, feedback, 'Password must be at least 6 characters');
+        return false;
+      }
+
+      clearError(input, feedback);
+      return true;
+    }
+
+    function showError(input, feedback, message) {
+      input.parentElement.classList.add('error');
+      feedback.textContent = message;
+      feedback.style.opacity = '1';
+    }
+
+    function clearError(input, feedback) {
+      input.parentElement.classList.remove('error');
+      feedback.textContent = '';
+      feedback.style.opacity = '0';
+    }
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+
+      const isValidEmail = validateInput(emailInput, 'email');
+      const isValidPassword = validateInput(passwordInput, 'password');
+      if (!isValidEmail || !isValidPassword) return;
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      if (rememberCheckbox.checked) {
+        localStorage.setItem(STORAGE_KEYS.EMAIL, email);
+        localStorage.setItem(STORAGE_KEYS.REMEMBER, 'true');
+      } else {
+        localStorage.removeItem(STORAGE_KEYS.EMAIL);
+        localStorage.removeItem(STORAGE_KEYS.REMEMBER);
+      }
+
+      loginBtn.classList.add('loading');
+
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          localStorage.setItem('isLoggedIn', 'true'); // ✅ Save login state
+          showSuccessMessage('Login successful!');
+          setTimeout(() => {
+            window.location.href = '/frontend/html/index2.html'; // ✅ Redirect
+          }, 1000);
+        } else {
+          showError(passwordInput, passwordInput.parentElement.querySelector('.input-feedback'), data.message || 'Invalid credentials');
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        showErrorMessage('Server error. Please try again.');
+      } finally {
+        loginBtn.classList.remove('loading');
+      }
+    }
+
+    function showSuccessMessage(message) {
+      const notification = document.createElement('div');
+      notification.className = 'notification success';
+      notification.innerHTML = `<i class="fas fa-check-circle"></i><span>${message}</span>`;
+      showNotification(notification);
+    }
+
+    function showErrorMessage(message) {
+      const notification = document.createElement('div');
+      notification.className = 'notification error';
+      notification.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>${message}</span>`;
+      showNotification(notification);
+    }
+
+    function showNotification(notification) {
+      const container = document.querySelector('.login-container');
+      container.appendChild(notification);
+      setTimeout(() => notification.classList.add('show'), 10);
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+
+    function setupEventListeners() {
+      form.addEventListener('submit', handleSubmit);
+      emailInput.addEventListener('input', () => validateInput(emailInput, 'email'));
+      passwordInput.addEventListener('input', () => validateInput(passwordInput, 'password'));
+
+      togglePassword.addEventListener('click', function () {
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+      });
+
+      socialButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          if (this.classList.contains('google-btn')) {
+            console.log('Google login');
+          } else if (this.classList.contains('facebook-btn')) {
+            console.log('Facebook login');
+          }
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeForm();
+      setupEventListeners();
+    });
+  </script>
+</body>
+</html>

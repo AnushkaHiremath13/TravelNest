@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="../css/adminlogin.css" />
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>Admin Login</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+      <p id="error" class="error-message"></p>
+      <p class="forgot-password"><a href="adminforgotpassword.html">Forgot Password?</a></p>
+      <p class="signup-link">Don't have an account? <a href="adminregister.html">Sign up here</a></p>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorDisplay = document.getElementById('error');
+
+      try {
+        const res = await fetch('http://localhost:5000/api/auth/admin/login', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          errorDisplay.textContent = data.message || 'Login failed';
+          return;
+        }
+
+        // Store admin info and redirect
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('adminUser', JSON.stringify(data.user));
+        window.location.href = 'admindashboard.html';
+      } catch (err) {
+        console.error('Admin login error:', err);
+        errorDisplay.textContent = 'Server error. Please try again later.';
+      }
+    });
+  </script>
+</body>
+
+</html>

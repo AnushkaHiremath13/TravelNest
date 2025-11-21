@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="../css/admindashboard.css" />
+  <!-- Add Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Admin Panel</h2>
+      <nav>
+        <ul>
+          <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+          <li><a href="manage-resorts.html"><i class="fas fa-hotel"></i> Manage Resorts</a></li>
+          <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+          <li><a href="adminlogin.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <div class="stats-container">
+        <div class="stat-card">
+          <i class="fas fa-hotel"></i>
+          <h3>Total Resorts</h3>
+          <p id="totalResorts">0</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-users"></i>
+          <h3>Total Users</h3>
+          <p id="totalUsers">0</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-star"></i>
+          <h3>Avg. Rating</h3>
+          <p id="avgRating">0.0</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Popular Resorts Section -->
+        <section class="popular-resorts">
+          <h2>Popular Resorts</h2>
+          <div class="resort-cards" id="popularResorts">
+            <!-- Popular resorts will be dynamically added here -->
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="../js/admindashboard.js"></script>
+</body>
+
+</html>

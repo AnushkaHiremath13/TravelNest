@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Resort</title>
+    <link rel="stylesheet" href="../css/addresort.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Add New Resort</h1>
+            <button id="backBtn" class="btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </button>
+        </header>
+
+        <form id="resortForm" enctype="multipart/form-data">
+            <div class="form-section">
+                <h2>Basic Information</h2>
+                <label for="resortTitle">Resort Title</label>
+                <input type="text" id="resortTitle" name="title" placeholder="Enter resort title" required>
+
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="Enter location" required>
+
+                <label for="price">Price Per Night</label>
+                <input type="number" id="price" name="price" placeholder="Enter price per night" required>
+
+                <label for="originalPrice">Original Price (Before Discount)</label>
+                <input type="number" id="originalPrice" name="originalPrice" placeholder="Enter original price">
+
+                <label for="roomType">Room Type</label>
+                <input type="text" id="roomType" name="roomType" placeholder="e.g., Deluxe Room, Suite">
+
+                <label for="occupancy">Maximum Occupancy</label>
+                <input type="number" id="occupancy" name="occupancy" min="1" placeholder="Number of guests">
+            </div>
+
+            <div class="form-section">
+                <h2>Ratings & Reviews</h2>
+                <label for="rating">Rating (0-5)</label>
+                <input type="number" step="0.1" id="rating" name="rating" min="0" max="5" placeholder="Enter rating" required>
+
+                <label for="ratingPhrase">Rating Phrase</label>
+                <input type="text" id="ratingPhrase" name="ratingPhrase" placeholder="e.g., Excellent, Good">
+
+                <label for="amenitiesRating">Amenities Rating (0-5)</label>
+                <input type="number" step="0.1" id="amenitiesRating" name="amenitiesRating" min="0" max="5" placeholder="Rate the amenities">
+            </div>
+
+            <div class="form-section">
+                <h2>Descriptions</h2>
+                <label for="shortDescription">Short Description</label>
+                <textarea id="shortDescription" name="shortDescription" rows="2" maxlength="200" placeholder="Enter a short summary (max 200 characters)" required></textarea>
+
+                <label for="description">Full Description</label>
+                <textarea id="description" name="description" rows="5" placeholder="Enter full description" required></textarea>
+            </div>
+
+            <div class="form-section">
+                <h2>Amenities</h2>
+                <label for="amenities">Amenities (comma-separated)</label>
+                <textarea id="amenities" name="amenities" rows="3" placeholder="e.g., Swimming Pool, Spa, WiFi" required></textarea>
+            </div>
+
+            <div class="form-section">
+                <h2>Media</h2>
+                <label for="images">Images (First image will be the main image)</label>
+                <input type="file" id="images" name="images" accept="image/*" multiple required>
+                <div id="imagePreview" class="image-preview"></div>
+
+                <label for="mapLink">Google Maps Link</label>
+                <input type="url" id="mapLink" name="mapLink" placeholder="e.g., https://www.google.com/maps/dir/?api=1&destination=..." required>
+                <div class="help-text">
+                    To get the link: 
+                    1. Go to Google Maps
+                    2. Find your location
+                    3. Click "Share"
+                    4. Select "Copy Link"
+                </div>
+
+                <label for="vlogLink">Video Link (YouTube)</label>
+                <input type="url" id="vlogLink" name="vlogLink" placeholder="e.g., https://youtu.be/...">
+            </div>
+
+            <div class="form-section">
+                <h2>Packages</h2>
+                <div id="packagesContainer">
+                    <div class="package-item">
+                        <input type="text" class="package-name" placeholder="Package Name" required>
+                        <textarea class="package-description" placeholder="Package Description" required></textarea>
+                        <input type="number" class="package-price" placeholder="Package Price" required>
+                        <input type="text" class="package-duration" placeholder="Duration (e.g., 3 Days / 2 Nights)" required>
+                        <input type="file" class="package-image" accept="image/*" required>
+                        
+                        <div class="highlights-container">
+                            <h3>Highlights</h3>
+                            <div class="highlight-items">
+                                <input type="text" class="package-highlight" placeholder="Highlight 1" required>
+                            </div>
+                            <button type="button" class="add-highlight-btn">+ Add Highlight</button>
+                        </div>
+
+                        <div class="inclusions-container">
+                            <h3>Inclusions</h3>
+                            <div class="inclusion-items">
+                                <input type="text" class="package-inclusion" placeholder="Inclusion 1" required>
+                            </div>
+                            <button type="button" class="add-inclusion-btn">+ Add Inclusion</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-package-btn">+ Add Another Package</button>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Nearby Attractions</h2>
+                <div id="attractionsContainer">
+                    <div class="attraction-items">
+                        <input type="text" class="nearby-attraction" placeholder="Attraction with distance" required>
+                    </div>
+                    <button type="button" class="add-attraction-btn">+ Add Attraction</button>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-save"></i> Save Resort
+                </button>
+                <div id="statusMsg" class="status-message"></div>
+            </div>
+        </form>
+    </div>
+
+    <script src="../js/addresort.js"></script>
+</body>
+</html>

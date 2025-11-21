@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add New Package</title>
+  <link rel="stylesheet" href="../css/addpackage.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Add New Package</h2>
+    <form id="packageForm" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="Package Name" required />
+      <input type="number" name="price" placeholder="Price" required />
+      <input type="text" name="duration" placeholder="Duration (e.g., 3 days 2 nights)" required />
+      <textarea name="description" placeholder="Package Description" rows="4" required></textarea>
+      <input type="text" name="amenities" placeholder="Amenities (comma-separated)" required />
+      <input type="text" name="resort" placeholder="Resort ID or Name" required />
+      <input type="file" name="images" accept="image/*" multiple />
+      <button type="submit">Submit</button>
+      <p id="statusMsg"></p>
+    </form>
+  </div>
+  <script src="../js/addpackage.js"></script>
+</body>
+</html>

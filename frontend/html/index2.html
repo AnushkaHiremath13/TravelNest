@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Travel Nest - Your all-in-one travel companion for seamless resort bookings and unforgettable experiences">
+    <meta name="keywords" content="travel, resorts, booking, vacation, hotels">
+    <title>Travel Nest - Your all-in-one travel app</title>
+    <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="htt/. ps://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="logo-container">
+            <img src="../src/logo.png" alt="Travel Nest Logo" class="navbar-logo">
+            <div class="logo-text">Travel Nest</div>
+        </div>
+        <div class="nav-links">
+            <div class="nav-item">
+                <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+            </div>
+            <div class="nav-item">
+                <a href="#destinations"><i class="fas fa-map-marked-alt"></i> Destinations</a>
+            </div>
+            <div class="nav-item">
+                <a href="#offers"><i class="fas fa-percent"></i> Offers</a>
+            </div>
+            <div class="nav-item">
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
+            </div>
+        </div>
+        <div class="user-actions">
+            <button id="signin-btn" class="sign-in">Sign In</button>
+            <div class="profile-dropdown" style="display: none;">
+                <div class="profile-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="dropdown-content">
+                    <div class="user-info">
+                        <span class="user-name">Loading...</span>
+                        <span class="user-email">Loading...</span>
+                    </div>
+                    <a href="/frontend/html/profile.html"><i class="fas fa-user"></i> My Profile</a>
+                    <a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <video autoplay muted loop id="hero-video">
+            <source src="../src/hero.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h1>Welcome to Travel Nest</h1>
+            <h2>Nest in comfort, Travel with ease</h2>
+            <div class="herocta">
+                <button class="getstartedbtn" id="getstartedbtn">Get Started <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="destinations" id="destinations">
+            <h2>Popular Destinations</h2>
+            <div class="slider-container">
+                <div class="slider-wrapper">
+
+                    <div class="destination-card">
+                        <img src="../src/fw.jpg" alt="Lake View">
+                        <div class="card-content">
+                            <h3>Fortune Woods Resort</h3>
+                            <p>Serene lakeside accommodation</p>
+                            <div class="card-details">
+                                <br>
+                                <span class="rating">⭐ 4.5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="../src/riverside.jpg" alt="River side">
+                        <div class="card-content">
+                            <h3>River Side Resort</h3>
+                            <p>Peaceful getaway by the river</p>
+                            <div class="card-details"><br>
+                                <span class="rating">⭐ 4.6</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="../src/ansh.jpg" alt="Art gh">
+                        <div class="card-content">
+                            <h3>Ansh Resort</h3>
+                            <p>Resort with mountain views</p>
+                            <div class="card-details"><br>
+                                <span class="rating">⭐ 4.8</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="destination-card">
+                        <img src="../src/wildernest.jpg" alt="Wilderness">
+                        <div class="card-content">
+                            <h3>Wilderness Resort</h3>
+                            <p>Adventure in the heart of nature</p>
+                            <div class="card-details">
+                                <br>
+                                <span class="rating">⭐ 4.9</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="../src/rgg.jpg" alt="Tree House">
+                        <div class="card-content">
+                            <h3>Tree House Resort</h3>
+                            <p>Unique stay among the treetops</p>
+                            <div class="card-details">
+                                <br>
+                                <span class="rating">⭐4.7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-btn prev" aria-label="Previous slide">❮</button>
+                <button class="slider-btn next" aria-label="Next slide">❯</button>
+            </div>
+        </section>
+
+        <section class="offers" id="offers">
+            <div class="section-header">
+                <h2>Special Offers</h2>
+            </div>
+            <div class="offers-wrapper">
+                <div class="offers-container">
+
+                    <div class="offer-card">
+                        <video class="offer-video" autoplay muted loop>
+                            <source src="../src/f1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="offer-content">
+                            <div class="offer-badge">Limited Time</div>
+                            <h3>Family Package Special</h3>
+                            <p>Enjoy up to 20% off on food and activities</p>
+                        </div>
+                    </div>
+
+                    <div class="offer-card">
+                        <video class="offer-video" autoplay muted loop>
+                            <source src="../src/f2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="offer-content">
+                            <div class="offer-badge">Popular</div>
+                            <h3>Weekend Getaway</h3>
+                            <p>Free airport transfer and late checkout</p>
+                        </div>
+                    </div>
+
+                    <div class="offer-card">
+                        <video class="offer-video" autoplay muted loop>
+                            <source src="../src/f3.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="offer-content">
+                            <div class="offer-badge">New</div>
+                            <h3>Honeymoon Package</h3>
+                            <p>Complimentary spa treatment and romantic dinner</p>
+                        </div>
+                    </div>
+
+                    <div class="offer-card">
+                        <video class="offer-video" autoplay muted loop>
+                            <source src="../src/f5.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="offer-content">
+                            <div class="offer-badge">Best Value</div>
+                            <h3>Business Traveler</h3>
+                            <p>Free high-speed WiFi and meeting room access</p>
+                        </div>
+                    </div>
+
+                    <div class="offer-card">
+                        <video class="offer-video" autoplay muted loop>
+                            <source src="../src/f6.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="offer-content">
+                            <div class="offer-badge">Special</div>
+                            <h3>Long Stay Discount</h3>
+                            <p>Up to 30% off for stays longer than 7 nights</p>
+                        </div>
+                    </div>
+
+                    <div class="offer-card">
+                        <video class="offer-video" autoplay muted loop>
+                            <source src="../src/f3.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="offer-content">
+                            <div class="offer-badge">Adventure</div>
+                            <h3>Adventure Package</h3>
+                            <p>Complimentary adventure activities and gear rental</p>
+                        </div>
+                    </div>
+
+                    <!-- Duplicate cards for seamless scrolling -->
+                    <div class="offer-card">
+                        <video class="offer-video" autoplay muted loop>
+                            <source src="../src/f1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="offer-content">
+                            <div class="offer-badge">Limited Time</div>
+                            <h3>Family Package Special</h3>
+                            <p>Enjoy up to 20% off on food and activities</p>
+                        </div>
+                    </div>
+
+                    <div class="offer-card">
+                        <video class="offer-video" autoplay muted loop>
+                            <source src="../src/f3.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="offer-content">
+                            <div class="offer-badge">Popular</div>
+                            <h3>Weekend Getaway</h3>
+                            <p>Free airport transfer and late checkout</p>
+                        </div>
+                    </div>
+
+                    <div class="offer-card">
+                        <video class="offer-video" autoplay muted loop>
+                            <source src="../src/f5.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="offer-content">
+                            <div class="offer-badge">New</div>
+                            <h3>Honeymoon Package</h3>
+                            <p>Complimentary spa treatment and romantic dinner</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="vloggers">
+            <video class="vlogger-video" autoplay muted loop>
+                <source src="../src/vlog.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="vlogger-content">
+                <h2>Plan your trip with travel vloggers</h2>
+                <p>Our advisors can craft your perfect itinerary</p>
+            </div>
+        </section>
+
+      <!--   <section class="recently-viewed">
+            <h2>Recently Viewed</h2>
+            <div class="viewed-container">
+                <!-- Recently viewed resorts will appear here dynamically -->
+<!--             </div>
+
+        </section> --> 
+
+
+        <section class="why-choose-us">
+            <p class="tagline">WHY CHOOSE US</p>
+            <h2>YOUR TRUSTED PARTNER FOR<br class="line-break" /> MEMORABLE GETAWAYS</h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div><i class="fas fa-video"></i></div>
+                    <h3>RESORT VLOGS</h3>
+                    <p>Watch real, engaging videos of resorts to get a true feel before booking.</p>
+                </div>
+                <div class="feature-card">
+                    <div><i class="fas fa-info-circle"></i></div>
+                    <h3>DETAILED INFORMATION</h3>
+                    <p>Get access to locations, images, ratings, descriptions, and direct contact details—all in one
+                        place.</p>
+                </div>
+                <div class="feature-card">
+                    <div><i class="fas fa-map-marked-alt"></i></div>
+                    <h3>INTERACTIVE MAPS</h3>
+                    <p>Explore exact resort locations with our integrated Google Maps view.</p>
+                </div>
+                <div class="feature-card">
+                    <div><i class="fas fa-lock"></i></div>
+                    <h3>SECURE BOOKING</h3>
+                    <p>Book your ideal resort by submitting your personal details through a protected, easy-to-use form.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div><i class="fas fa-star"></i></div>
+                    <h3>VERIFIED REVIEWS</h3>
+                    <p>See what other travelers are saying through authentic reviews and ratings.</p>
+                </div>
+                <div class="feature-card">
+                    <div><i class="fas fa-mobile-alt"></i></div>
+                    <h3>MOBILE-FRIENDLY</h3>
+                    <p>Enjoy a smooth and responsive interface, no matter the device.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Replace the existing footer with this code -->
+    <footer class="footer" id="contact">
+        <!-- Floating Logo -->
+        <div class="footer-logo-box">
+            <img src="../src/logo.png" alt="Travel Nest Logo">
+        </div>
+
+        <div class="footer-container" id="contact">
+            <div class="social-icons">
+                <a href="https://www.instagram.com/travel_nest_?igsh=MWxqMWphajg2dnYweA==" aria-label="Instagram"
+                    class="social-icon-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://x.com/travel_nest_?t=4Hri1n9DHo1mdUUKHZKaPQ&s=09" aria-label="Twitter"
+                    class="social-icon-link"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/travel-nest-362096363?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                    aria-label="LinkedIn" class="social-icon-link"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <div class="copyright">
+                © 2025 <span>TRAVEL NEST</span> — All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <style>
+    .user-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .profile-dropdown {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .profile-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #f0f0f0;
+        transition: background-color 0.3s ease;
+    }
+
+    .profile-icon i {
+        font-size: 1.5rem;
+        color: #008cff;
+    }
+
+    .profile-icon:hover {
+        background: #e0e0e0;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: white;
+        min-width: 200px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        padding: 8px 0;
+        z-index: 1000;
+    }
+
+    .user-info {
+        padding: 12px 20px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 8px;
+    }
+
+    .user-info .user-name {
+        display: block;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 4px;
+    }
+
+    .user-info .user-email {
+        display: block;
+        font-size: 0.85rem;
+        color: #666;
+    }
+
+    .profile-dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown-content a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 20px;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+        background: #f5f5f5;
+    }
+
+    .dropdown-content i {
+        font-size: 1.1rem;
+        color: #008cff;
+    }
+
+    @media (max-width: 768px) {
+        .user-actions {
+            margin: 10px 0;
+            justify-content: center;
+        }
+        
+        .profile-dropdown {
+            position: static;
+        }
+        
+        .dropdown-content {
+            position: static;
+            box-shadow: none;
+            background: transparent;
+            width: 100%;
+        }
+        
+        .dropdown-content a {
+            justify-content: center;
+            color: #333;
+        }
+        
+        .dropdown-content a:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+    }
+    </style>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (navbar) {
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
+            }
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        }
+
+        // Dropdown menu handling
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            const link = item.querySelector('a');
+            const dropdown = item.querySelector('.dropdown-menu');
+            if (link && dropdown) {
+                link.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                    }
+                });
+            }
+        });
+
+        // Slider functionality
+        const sliderWrapper = document.querySelector('.slider-wrapper');
+        const prevBtn = document.querySelector('.slider-btn.prev');
+        const nextBtn = document.querySelector('.slider-btn.next');
+        const cards = document.querySelectorAll('.destination-card');
+        let currentIndex = 0;
+        let isAnimating = false;
+
+        function getCardsPerView() {
+            const containerWidth = sliderWrapper.offsetWidth;
+            const cardWidth = cards[0].offsetWidth;
+            const gap = 20;
+            return Math.floor(containerWidth / (cardWidth + gap));
+        }
+
+        function updateSlider() {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const cardsPerView = getCardsPerView();
+            const maxIndex = Math.max(0, cards.length - cardsPerView);
+            currentIndex = Math.min(Math.max(0, currentIndex), maxIndex);
+
+            const offset = currentIndex * (cards[0].offsetWidth + 20);
+            sliderWrapper.style.transform = `translateX(-${offset}px)`;
+
+            setTimeout(() => {
+                isAnimating = false;
+            }, 500);
+        }
+
+        function handleResize() {
+            currentIndex = 0;
+            updateSlider();
+        }
+
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateSlider();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const cardsPerView = getCardsPerView();
+                if (currentIndex < cards.length - cardsPerView) {
+                    currentIndex++;
+                    updateSlider();
+                }
+            });
+        }
+
+        // Touch support for slider
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        if (sliderWrapper) {
+            sliderWrapper.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            sliderWrapper.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+        }
+
+        function handleSwipe() {
+            const swipeDistance = touchEndX - touchStartX;
+            if (Math.abs(swipeDistance) > 50) {
+                if (swipeDistance > 0 && currentIndex > 0) {
+                    currentIndex--;
+                    updateSlider();
+                } else if (swipeDistance < 0) {
+                    const cardsPerView = getCardsPerView();
+                    if (currentIndex < cards.length - cardsPerView) {
+                        currentIndex++;
+                        updateSlider();
+                    }
+                }
+            }
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll progress bar
+        const addScrollProgress = () => {
+            const progressBar = document.createElement('div');
+            progressBar.className = 'scroll-progress';
+            document.body.appendChild(progressBar);
+
+            window.addEventListener('scroll', () => {
+                const winScroll = document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + '%';
+            });
+        };
+        addScrollProgress();
+
+        // Scroll reveal effect
+        const scrollReveal = () => {
+            const elements = document.querySelectorAll('.destination-card, .viewed-card, .offer-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            elements.forEach(el => observer.observe(el));
+        };
+
+        // Recently viewed functionality
+        function renderRecentlyViewed() {
+            const container = document.querySelector('.viewed-container');
+            if (!container) return;
+
+            container.innerHTML = '';
+            const recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
+
+            if (recentlyViewed.length === 0) {
+                container.innerHTML = `<p style="text-align: center; color: gray;">No resorts viewed yet.</p>`;
+                return;
+            }
+
+            recentlyViewed.forEach(resort => {
+                const card = document.createElement('div');
+                card.className = 'viewed-card reveal';
+                card.innerHTML = `
+                    <img src="/frontend${resort.image}" alt="${resort.title}">
+                    <div class="card-info">
+                        <h3>${resort.title}</h3>
+                        <p>${resort.description}</p>
+                        <div class="card-details">
+                            <span class="rating">${resort.rating}</span>
+                            <span class="amenities">Recently Viewed</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Track clicks on destination cards
+        const destinationCards = document.querySelectorAll('.destination-card');
+        destinationCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('h3')?.textContent || '';
+                const description = card.querySelector('p')?.textContent || '';
+                const rating = card.querySelector('.rating')?.textContent || '';
+                const image = card.querySelector('img')?.getAttribute('src') || '';
+
+                const viewedResort = { title, description, rating, image };
+
+                let recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
+                recentlyViewed = recentlyViewed.filter(item => item.title !== viewedResort.title);
+                recentlyViewed.unshift(viewedResort);
+                recentlyViewed = recentlyViewed.slice(0, 5);
+
+                localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed));
+                renderRecentlyViewed();
+            });
+        });
+
+        // Button click navigations
+        const getStartedBtn = document.getElementById("getstartedbtn");
+        if (getStartedBtn) {
+            getStartedBtn.addEventListener("click", () => {
+                const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                if (isLoggedIn) {
+                    window.location.href = "/frontend/html/search.html";
+                } else {
+                    window.location.href = "/frontend/html/login.html";
+                }
+            });
+        }
+
+        const heroCTA = document.getElementById("herocta");
+        if (heroCTA) {
+            heroCTA.addEventListener("click", () => {
+                window.location.href = "../html/search.html";
+            });
+        }
+
+        // Run after DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSlider();
+            scrollReveal();
+            renderRecentlyViewed();
+
+            // Profile dropdown functionality
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const signinBtn = document.getElementById('signin-btn');
+            const profileDropdown = document.querySelector('.profile-dropdown');
+            const logoutLink = document.getElementById('logout-link');
+            const userName = document.querySelector('.user-name');
+            const userEmail = document.querySelector('.user-email');
+
+            if (signinBtn && profileDropdown) {
+                if (isLoggedIn && userData) {
+                    signinBtn.style.display = 'none';
+                    profileDropdown.style.display = 'block';
+                    
+                    // Update user info in dropdown
+                    if (userName) userName.textContent = userData.name || 'User';
+                    if (userEmail) userEmail.textContent = userData.email || '';
+                } else {
+                    signinBtn.style.display = 'inline-block';
+                    profileDropdown.style.display = 'none';
+                }
+
+                // Sign in button click handler
+                signinBtn.addEventListener('click', () => {
+                    window.location.href = '/frontend/html/signup.html';
+                });
+
+                // Logout link click handler
+                logoutLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userData');
+                    signinBtn.style.display = 'inline-block';
+                    profileDropdown.style.display = 'none';
+                    window.location.href = '/frontend/html/login.html';
+                });
+            }
+        });
+
+        window.addEventListener('resize', handleResize);
+    </script>
+
+
+</body>
+
+</html>

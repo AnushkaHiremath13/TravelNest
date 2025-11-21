@@ -1,0 +1,29 @@
+{
+    "apps": [
+      {
+        "name": "TravelNest Backend",
+        "script": "server.js",
+        "instances": 1,
+        "exec_mode": "fork",
+        "watch": [
+          "server.js",
+          "models/",
+          "routes/",
+          "controllers/"
+        ],
+        "env": {
+          "PORT": 5000,
+          "NODE_ENV": "development",
+          "MONGODB_URI": "mongodb://localhost:27017/travelnestdb",
+          "JWT_SECRET": "your-jwt-secret-key",
+          "JWT_EXPIRE": "30d",
+          "ADMIN_SECRET_KEY": "your-admin-secret-key"
+        }
+      }
+    ],
+    "options": {
+      "delay": "1000",
+      "minDelay": "100",
+      "interval": "1000"
+    }
+  }

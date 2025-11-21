@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Search</title>
+    <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Remove the <script> block containing the resorts array and logic -->
+
+    <nav class="navbar">
+        <div class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="logo-container">
+            <img src="../src/logo.png" alt="Travel Nest Logo" class="navbar-logo">
+            <div class="logo-text">Travel Nest</div>
+        </div>
+        <div class="nav-links">
+            <div class="nav-item">
+                <a href="../html/index2.html"><i class="fas fa-home"></i> Home</a>
+            </div>
+            <div class="nav-item">
+                <a href="#destinations" class="active"><i class="fas fa-map-marked-alt"></i> Destinations</a>
+            </div>
+            <!-- <div class="nav-item">
+                <a href="#offers"><i class="fas fa-percent"></i> Offers</a>
+            </div> -->
+            <div class="nav-item">
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
+            </div>
+        </div>
+        <div class="user-actions">
+            <button id="signin-btn" class="sign-in">Sign In</button>
+            <div class="profile-dropdown" style="display: none;">
+                <div class="profile-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="dropdown-content">
+                    <div class="user-info">
+                        <span class="user-name">Loading...</span>
+                        <span class="user-email">Loading...</span>
+                    </div>
+                    <a href="/frontend/html/profile.html"><i class="fas fa-user"></i> My Profile</a>
+                    <a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Find Your Perfect Getaway</h1>
+            <p>Discover amazing resorts and hotels at the best prices</p>
+        </div>
+    </div>
+
+    <div class="search-container" id="search-container">
+        <div class="search-form-wrapper" id="search-form-wrapper">
+            <div class="search-form">
+                <form id="search-form">
+                    <div class="search-grid">
+                        <div class="form-group">
+                            <label for="destination">
+                                <i class="fas fa-map-marker-alt"></i> Destination
+                            </label>
+                            <input type="text" id="destination" name="destination" placeholder="Where are you going?"
+                                required>
+                            <div class="suggestions" id="destination-suggestions"></div>
+                        </div>
+
+                        <div class="form-group date-group">
+                            <label for="dates">
+                                <i class="fas fa-calendar-alt"></i> Check-in / Check-out
+                            </label>
+                            <div class="date-inputs">
+                                <input type="date" id="checkin" name="checkin" required>
+                                <span class="date-separator">to</span>
+                                <input type="date" id="checkout" name="checkout" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="guests">
+                                <i class="fas fa-user-friends"></i> Guests & Rooms
+                            </label>
+                            <div class="dropdown-input" id="guests-dropdown-toggle">
+                                <span id="guests-display">2 Guests, 1 Room</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="dropdown-content" id="guests-dropdown">
+                                <div class="guests-selector">
+                                    <div class="guest-option">
+                                        <span>Adults</span>
+                                        <div class="quantity-selector">
+                                            <button type="button" class="qty-btn minus" data-target="adults">-</button>
+                                            <span id="adults-count">2</span>
+                                            <button type="button" class="qty-btn plus" data-target="adults">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="guest-option">
+                                        <span>Children</span>
+                                        <div class="quantity-selector">
+                                            <button type="button" class="qty-btn minus"
+                                                data-target="children">-</button>
+                                            <span id="children-count">0</span>
+                                            <button type="button" class="qty-btn plus" data-target="children">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="guest-option">
+                                        <span>Rooms</span>
+                                        <div class="quantity-selector">
+                                            <button type="button" class="qty-btn minus" data-target="rooms">-</button>
+                                            <span id="rooms-count">1</span>
+                                            <button type="button" class="qty-btn plus" data-target="rooms">+</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-apply" id="apply-guests">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Panel -->
+                    <div class="filter-panel" id="filter-panel">
+                        <div class="filter-grid">
+                            <div class="filter-group">
+                                <h4>Resort Rating</h4>
+                                <div class="filter-options">
+                                    <div class="chip-filter" data-filter="rating" data-value="3">3+ Stars</div>
+                                    <div class="chip-filter" data-filter="rating" data-value="4">4+ Stars</div>
+                                    <div class="chip-filter" data-filter="rating" data-value="5">5 Stars</div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <h4>Resort Type</h4>
+                                <div class="filter-options">
+                                    <div class="chip-filter" data-filter="type" data-value="beachfront">Beachfront</div>
+                                    <div class="chip-filter" data-filter="type" data-value="family">Family Friendly
+                                    </div>
+                                    <div class="chip-filter" data-filter="type" data-value="luxury">Luxury</div>
+                                    <div class="chip-filter" data-filter="type" data-value="all-inclusive">All-Inclusive
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <h4>Price Range (per night)</h4>
+                                <input type="range" min="50" max="1000" value="500" class="range-slider"
+                                    id="price-range">
+                                <div class="range-values">
+                                    <span>₹50</span>
+                                    <span id="price-display">₹500</span>
+                                    <span>₹1000+</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-grid">
+                            <div class="filter-group">
+                                <h4>Amenities</h4>
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox" name="amenities" value="pool"> Swimming Pool
+                                    </label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox" name="amenities" value="spa"> Spa & Wellness
+                                    </label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox" name="amenities" value="wifi"> Free WiFi
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <h4>Activities</h4>
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox" name="activities" value="diving"> Diving
+                                    </label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox" name="activities" value="golf"> Golf
+                                    </label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox" name="activities" value="kids-club"> Kids Club
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <h4>Deals</h4>
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox" name="deals" value="free-cancellation"> Free Cancellation
+                                    </label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox" name="deals" value="special-offer"> Special Offers
+                                    </label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox" name="deals" value="last-minute"> Last Minute Deals
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="search-actions">
+                        <button type="submit" class="btn-search">
+                            <i class="fas fa-search"></i> Search Resorts
+                        </button>
+                        <button type="button" class="btn-filter" id="filter-toggle">
+                            <i class="fas fa-sliders-h"></i> Filters
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="results-header">
+            <h2>Available Destinations</h2>
+            <span class="results-count" id="results-count">0 results found</span>
+        </div>
+
+        <div class="results" id="results">
+            <!-- Results will be injected here by JavaScript -->
+            <div class="loading-container" id="loading-container">
+                <div class="loading-circle"></div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-container" id="contact">
+            <div class="social-icons">
+                <a href="#" aria-label="Instagram" class="social-icon-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" aria-label="Twitter" class="social-icon-link">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" aria-label="LinkedIn" class="social-icon-link">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <!-- <a href="#" aria-label="Facebook" class="social-icon-link">
+                    <i class="fab fa-facebook-f"></i>
+                </a> -->
+            </div>
+            <div class="copyright">
+                © 2025 <span>TRAVELNEST PVT. LTD.</span>
+            </div>
+        </div>
+    </footer>
+    <!-- Add this at the end of the body -->
+    <script src="../js/search.js"></script>
+    <script>
+        // Profile dropdown functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const signinBtn = document.getElementById('signin-btn');
+            const profileDropdown = document.querySelector('.profile-dropdown');
+            const logoutLink = document.getElementById('logout-link');
+            const userName = document.querySelector('.user-name');
+            const userEmail = document.querySelector('.user-email');
+
+            if (signinBtn && profileDropdown) {
+                if (isLoggedIn && userData) {
+                    signinBtn.style.display = 'none';
+                    profileDropdown.style.display = 'block';
+                    
+                    // Update user info in dropdown
+                    if (userName) userName.textContent = userData.name || 'User';
+                    if (userEmail) userEmail.textContent = userData.email || '';
+                } else {
+                    signinBtn.style.display = 'inline-block';
+                    profileDropdown.style.display = 'none';
+                }
+
+                // Sign in button click handler
+                signinBtn.addEventListener('click', () => {
+                    window.location.href = '/frontend/html/signup.html';
+                });
+
+                // Logout link click handler
+                if (logoutLink) {
+                    logoutLink.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        localStorage.removeItem('isLoggedIn');
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('userData');
+                        window.location.href = '/frontend/html/login.html';
+                    });
+                }
+            }
+
+            // Get search parameters from the form
+            const searchForm = document.getElementById('search-form');
+            const destinationInput = document.getElementById('destination');
+            const checkinInput = document.getElementById('checkin');
+            const checkoutInput = document.getElementById('checkout');
+            const adultsCount = document.getElementById('adults-count');
+            const childrenCount = document.getElementById('children-count');
+            const roomsCount = document.getElementById('rooms-count');
+
+            // Function to create resort card with search parameters
+            function createResortCard(resort) {
+                const checkin = checkinInput.value;
+                const checkout = checkoutInput.value;
+                const adults = adultsCount.textContent;
+                const children = childrenCount.textContent;
+                const rooms = roomsCount.textContent;
+
+                // Create URL with search parameters
+                const resortUrl = `resort.html?id=${resort.id}&checkin=${checkin}&checkout=${checkout}&adults=${adults}&children=${children}&rooms=${rooms}`;
+
+                return `
+                    <div class="resort-card">
+                        <div class="resort-image">
+                            <img src="../src/${resort.imgSrc}" alt="${resort.title}">
+                        </div>
+                        <div class="resort-info">
+                            <h3>${resort.title}</h3>
+                            <div class="resort-rating">
+                                <div class="stars">
+                                    ${Array(5).fill('').map((_, i) => 
+                                        i < Math.floor(resort.rating) 
+                                            ? '<i class="fas fa-star"></i>' 
+                                            : '<i class="far fa-star"></i>'
+                                    ).join('')}
+                                </div>
+                                <span>${resort.rating.toFixed(1)}</span>
+                            </div>
+                            <p class="resort-description">${resort.description}</p>
+                            <div class="resort-price">
+                                <span class="price">₹${resort.price.toFixed(0)}</span>
+                                <span class="per-night">per night</span>
+                            </div>
+                            <a href="${resortUrl}" class="view-details-btn">View Details</a>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Update the results display function to use the new card creation
+            function displayResults(resorts) {
+                const resultsContainer = document.getElementById('results');
+                const resultsCount = document.getElementById('results-count');
+                
+                if (resorts.length === 0) {
+                    resultsContainer.innerHTML = '<div class="no-results">No resorts found matching your criteria.</div>';
+                    resultsCount.textContent = '0 results found';
+                    return;
+                }
+
+                resultsCount.textContent = `${resorts.length} results found`;
+                resultsContainer.innerHTML = resorts.map(resort => createResortCard(resort)).join('');
+            }
+        });
+    </script>
+    <style>
+    .user-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .profile-dropdown {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .profile-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #f0f0f0;
+        transition: background-color 0.3s ease;
+    }
+
+    .profile-icon i {
+        font-size: 1.5rem;
+        color: #008cff;
+    }
+
+    .profile-icon:hover {
+        background: #e0e0e0;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: white;
+        min-width: 200px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        padding: 8px 0;
+        z-index: 1000;
+    }
+
+    .user-info {
+        padding: 12px 20px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 8px;
+    }
+
+    .user-info .user-name {
+        display: block;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 4px;
+    }
+
+    .user-info .user-email {
+        display: block;
+        font-size: 0.85rem;
+        color: #666;
+    }
+
+    .profile-dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown-content a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 20px;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+        background: #f5f5f5;
+    }
+
+    .dropdown-content i {
+        font-size: 1.1rem;
+        color: #008cff;
+    }
+
+    @media (max-width: 768px) {
+        .user-actions {
+            margin: 10px 0;
+            justify-content: center;
+        }
+        
+        .profile-dropdown {
+            position: static;
+        }
+        
+        .dropdown-content {
+            position: static;
+            box-shadow: none;
+            background: transparent;
+            width: 100%;
+        }
+        
+        .dropdown-content a {
+            justify-content: center;
+            color: #333;
+        }
+        
+        .dropdown-content a:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+    }
+    </style>
+</body>
+
+</html>

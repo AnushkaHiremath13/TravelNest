@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Resorts - Admin Dashboard</title>
+    <base href="/frontend/admin/" />
+    <link rel="stylesheet" href="css/manage-resorts.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Admin Panel</h2>
+            <nav>
+                <ul>
+                    <li><a href="html/admindashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#" class="active"><i class="fas fa-hotel"></i> Manage Resorts</a></li>
+                    <li><a href="html/users.html"><i class="fas fa-users"></i> Users</a></li>
+                    <li><a href="html/adminlogin.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <main class="main-content">
+            <div class="manage-resorts-header">
+                <h1>Manage Resorts</h1>
+                <button class="add-resort-btn" id="addResortBtn">
+                    <i class="fas fa-plus"></i> Add New Resort
+                </button>
+            </div>
+
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-container">
+                    <input type="text" id="resortNameSearch" placeholder="Resort Name" />
+                    <input type="text" id="locationSearch" placeholder="Location" />
+                    <select id="priceRangeSearch">
+                        <option value="">Price Range</option>
+                        <option value="0-1000">₹0 - ₹1000</option>
+                        <option value="1001-2000">₹1001 - ₹2000</option>
+                        <option value="2001-5000">₹2001 - ₹5000</option>
+                        <option value="5001+">₹5001+</option>
+                    </select>
+                    <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+                </div>
+            </div>
+
+            <!-- Resort List -->
+            <div class="resort-list" id="resortList">
+                <!-- Resorts will be dynamically added here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Resort Modal -->
+    <div class="modal" id="resortModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Add New Resort</h2>
+            <form id="resortForm">
+                <!-- Basic Information Section -->
+                <div class="form-section">
+                    <h3>Basic Information</h3>
+                    <div class="form-group">
+                        <label for="resortTitle">Title <span class="required">*</span></label>
+                        <input type="text" id="resortTitle" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location <span class="required">*</span></label>
+                        <input type="text" id="location" name="location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price per night (₹) <span class="required">*</span></label>
+                        <input type="number" id="price" name="price" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="originalPrice">Original Price (₹)</label>
+                        <input type="number" id="originalPrice" name="originalPrice" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="roomType">Room Type</label>
+                        <input type="text" id="roomType" name="roomType" placeholder="e.g., Standard Room">
+                    </div>
+                    <div class="form-group">
+                        <label for="occupancy">Maximum Occupancy</label>
+                        <input type="number" id="occupancy" name="occupancy" min="1" value="2">
+                    </div>
+                </div>
+
+                <!-- Ratings Section -->
+                <div class="form-section">
+                    <h3>Ratings</h3>
+                    <div class="form-group">
+                        <label for="rating">Rating (1-5) <span class="required">*</span></label>
+                        <input type="number" id="rating" name="rating" min="0" max="5" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ratingPhrase">Rating Phrase</label>
+                        <input type="text" id="ratingPhrase" name="ratingPhrase" placeholder="e.g., Excellent, Good">
+                    </div>
+                    <div class="form-group">
+                        <label for="amenitiesRating">Amenities Rating (1-5)</label>
+                        <input type="number" id="amenitiesRating" name="amenitiesRating" min="0" max="5" step="0.1" value="4">
+                    </div>
+                </div>
+
+                <!-- Description Section -->
+                <div class="form-section">
+                    <h3>Description</h3>
+                    <div class="form-group">
+                        <label for="shortDescription">Short Description <span class="required">*</span></label>
+                        <textarea id="shortDescription" name="shortDescription" rows="2" maxlength="200" required></textarea>
+                        <small>Brief overview of the resort (max 200 characters)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Detailed Description</label>
+                        <textarea id="description" name="description" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <!-- Amenities Section -->
+                <div class="form-section">
+                    <h3>Amenities</h3>
+                    <div class="form-group">
+                        <label for="amenities">Select Amenities</label>
+                        <select id="amenities" name="amenities" multiple>
+                            <option value="Private Beach Access">Private Beach Access</option>
+                            <option value="Infinity Pool">Infinity Pool</option>
+                            <option value="Spa & Wellness Center">Spa & Wellness Center</option>
+                            <option value="Water Sports">Water Sports</option>
+                            <option value="Fine Dining Restaurants">Fine Dining Restaurants</option>
+                            <option value="Kids Club">Kids Club</option>
+                            <option value="Fitness Center">Fitness Center</option>
+                            <option value="Free WiFi">Free WiFi</option>
+                            <option value="24/7 Room Service">24/7 Room Service</option>
+                            <option value="Airport Transfer">Airport Transfer</option>
+                        </select>
+                        <small>Hold Ctrl (Windows) or Command (Mac) to select multiple amenities</small>
+                    </div>
+                </div>
+
+                <!-- Media Section -->
+                <div class="form-section">
+                    <h3>Media</h3>
+                    <div class="form-group">
+                        <label for="mainImage">Main Image <span class="required">*</span></label>
+                        <input type="file" id="mainImage" name="imgSrc" accept="image/*" required>
+                        <div id="mainImagePreview" class="image-preview"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gallery">Additional Photos</label>
+                        <input type="file" id="gallery" name="photos" accept="image/*" multiple>
+                        <div id="galleryPreview" class="gallery-preview"></div>
+                    </div>
+                </div>
+
+                <!-- Location Links Section -->
+                <div class="form-section">
+                    <h3>Location & Media Links</h3>
+                    <div class="form-group">
+                        <label for="mapLink">Google Maps Link <span class="required">*</span></label>
+                        <input type="url" id="mapLink" name="mapLink" placeholder="Paste any Google Maps link for your resort location" required>
+                        <div class="help-text">
+                            To get a Google Maps link:
+                            1. Go to Google Maps
+                            2. Search for your resort location
+                            3. Click on your location marker
+                            4. Click "Share"
+                            5. Copy the link
+                            <br>
+                            You can paste any type of Google Maps link:
+                            • Regular map link
+                            • Place link
+                            • Directions link
+                            • Search result link
+                            <br>
+                            We'll automatically convert it to the correct embed format!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="videoUrl">Video Link (YouTube Embed)</label>
+                        <input type="url" id="videoUrl" name="vlogLink" placeholder="e.g., https://www.youtube.com/embed/...">
+                    </div>
+                </div>
+
+                <!-- Packages Section -->
+                <div class="form-section">
+                    <h3>Packages</h3>
+                    <div id="packagesContainer">
+                        <div class="package-item">
+                            <input type="text" class="package-name" placeholder="Package Name" required>
+                            <textarea class="package-description" placeholder="Package Description" required></textarea>
+                            <input type="number" class="package-price" placeholder="Package Price" required>
+                            <input type="text" class="package-duration" placeholder="Duration (e.g., 3 Days / 2 Nights)" required>
+                            <input type="file" class="package-image" accept="image/*" required>
+                            
+                            <div class="highlights-container">
+                                <h4>Highlights</h4>
+                                <div class="highlight-items">
+                                    <input type="text" class="package-highlight" placeholder="Highlight 1" required>
+                                </div>
+                                <button type="button" class="add-highlight-btn">+ Add Highlight</button>
+                            </div>
+
+                            <div class="inclusions-container">
+                                <h4>Inclusions</h4>
+                                <div class="inclusion-items">
+                                    <input type="text" class="package-inclusion" placeholder="Inclusion 1" required>
+                                </div>
+                                <button type="button" class="add-inclusion-btn">+ Add Inclusion</button>
+                            </div>
+                            <button type="button" class="remove-package-btn">Remove Package</button>
+                        </div>
+                        <button type="button" class="add-package-btn">+ Add Another Package</button>
+                    </div>
+                </div>
+
+                <!-- Nearby Attractions Section -->
+                <div class="form-section">
+                    <h3>Nearby Attractions</h3>
+                    <div id="attractionsContainer">
+                        <div class="attraction-items">
+                            <input type="text" class="nearby-attraction" placeholder="Attraction with distance">
+                        </div>
+                        <button type="button" class="add-attraction-btn">+ Add Attraction</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="save-resort-btn">Save Resort</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/manage-resorts.js"></script>
+</body>
+
+</html>

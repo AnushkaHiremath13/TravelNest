@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,"> <!-- Fix favicon 404 error -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input,
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .error {
+      color: #dc3545;
+      font-size: 0.9em;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .success {
+      color: #28a745;
+      font-size: 0.9em;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Admin Registration</h2>
+    <form id="adminRegisterForm">
+      <input type="text" id="name" placeholder="Full Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="text" id="address" placeholder="Address" required />
+      <input type="tel" id="phone" placeholder="Phone (10 digits)" pattern="[0-9]{10}" required />
+      <input type="password" id="password" placeholder="Password (min 8 chars with special character)" required />
+      <input type="password" id="adminKey" placeholder="Admin Key" required />
+      <button type="submit">Register as Admin</button>
+      <div id="message" class="error"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('adminRegisterForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      // Changed 'name' to 'fullName' to match backend expectation
+      const formData = {
+        fullName: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        password: document.getElementById('password').value,
+        adminKey: document.getElementById('adminKey').value.trim()
+      };
+
+      const messageEl = document.getElementById('message');
+      messageEl.textContent = '';
+      messageEl.className = 'error';
+
+      // Client-side validations
+      if (!/^\d{10}$/.test(formData.phone)) {
+        messageEl.textContent = '❌ Phone number must be 10 digits';
+        return;
+      }
+
+      if (!/(?=.*[!@#$%^&*])(?=.*\d).{8,}/.test(formData.password)) {
+        messageEl.textContent = '❌ Password must be 8+ chars with a special character and number';
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/admin/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          messageEl.textContent = '🎉 Admin registered successfully! Redirecting...';
+          messageEl.className = 'success';
+          // Store the token and user data
+          localStorage.setItem('token', result.token);
+          localStorage.setItem('adminUser', JSON.stringify(result.user));
+          setTimeout(() => {
+            window.location.href = 'adminlogin.html';
+          }, 2000);
+        } else {
+          messageEl.textContent = `❌ ${result.message || 'Registration failed'}`;
+        }
+      } catch (error) {
+        console.error('Registration error:', error);
+        messageEl.textContent = '⚠️ Unable to connect to the server. Please try again later.';
+      }
+    });
+  </script>
+</body>
+
+</html>

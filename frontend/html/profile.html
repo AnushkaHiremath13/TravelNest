@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - Travel Nest</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2196F3;
+      --primary-dark: #1976D2;
+      --text-color: #333;
+      --text-light: #666;
+      --background-color: #f5f5f5;
+      --white: #ffffff;
+      --border-radius: 12px;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navbar - Consistent with other pages */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      padding: 15px 30px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-logo {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-item a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-item a:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-item a.active {
+      color: var(--primary-color);
+    }
+
+    .user-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .sign-in {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .sign-in:hover {
+      background: var(--primary-dark);
+    }
+
+    .profile-dropdown {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .profile-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      transition: background-color 0.3s ease;
+    }
+
+    .profile-icon i {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .profile-icon:hover {
+      background: #e0e0e0;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: white;
+      min-width: 200px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 8px 0;
+      z-index: 1000;
+    }
+
+    .profile-dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      color: var(--text-color);
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+      background: #f5f5f5;
+    }
+
+    .dropdown-content i {
+      font-size: 1.1rem;
+      color: var(--primary-color);
+    }
+
+    /* Profile Page Styles */
+    .profile-header {
+      text-align: center;
+      margin: 30px 0 40px;
+    }
+
+    .profile-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: var(--text-color);
+    }
+
+    .profile-header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    .profile-content {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    @media (max-width: 900px) {
+      .profile-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* User Info Card */
+    .user-info-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      text-align: center;
+    }
+
+    .profile-picture {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 20px;
+      border: 3px solid var(--primary-color);
+    }
+
+    .user-name {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+      color: var(--text-color);
+    }
+
+    .user-email {
+      color: var(--text-light);
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .user-details {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .user-detail {
+      display: flex;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .user-detail:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .detail-icon {
+      width: 40px;
+      height: 40px;
+      background: #f0f6ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .detail-icon i {
+      color: var(--primary-color);
+    }
+
+    .detail-content h3 {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 3px;
+    }
+
+    .detail-content p {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    /* Bookings Section */
+    .bookings-section {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 30px;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #f0f0f0;
+      color: var(--text-color);
+    }
+
+    .bookings-container {
+      display: grid;
+      gap: 20px;
+    }
+
+    .booking-card {
+      display: flex;
+      border: 1px solid #eee;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .booking-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+
+    .booking-image {
+      width: 250px;
+      height: 200px;
+      flex-shrink: 0;
+    }
+
+    .booking-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .booking-details {
+      flex: 1;
+      padding: 20px;
+      position: relative;
+    }
+
+    .booking-resort-name {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: var(--text-color);
+    }
+
+    .booking-dates {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+
+    .date-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-light);
+    }
+
+    .date-item i {
+      color: var(--primary-color);
+    }
+
+    .booking-info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-item i {
+      width: 30px;
+      height: 30px;
+      background: #f0f6ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+    }
+
+    .info-label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .info-value {
+      font-weight: 500;
+    }
+
+    .booking-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-top: 15px;
+    }
+
+    .booking-status {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .status-confirmed {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .status-pending {
+      background: #fff8e1;
+      color: #f57f17;
+    }
+
+    .status-cancelled {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    /* Footer */
+    footer {
+      background: #fff;
+      padding: 30px 0;
+      text-align: center;
+      border-top: 1px solid #eee;
+      margin-top: 50px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .social-icon-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-color);
+      transition: all 0.3s;
+    }
+
+    .social-icon-link:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .copyright span {
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      color: #e0e0e0;
+      margin-bottom: 20px;
+    }
+
+    .empty-state h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--text-light);
+    }
+
+    .empty-state p {
+      color: var(--text-light);
+      margin-bottom: 25px;
+    }
+
+    .explore-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .explore-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .booking-card {
+        flex-direction: column;
+      }
+      
+      .booking-image {
+        width: 100%;
+        height: 200px;
+      }
+      
+      .booking-info-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .navbar {
+        flex-wrap: wrap;
+      }
+      
+      .nav-links {
+        order: 3;
+        width: 100%;
+        margin-top: 15px;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo-container">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMjE5NkYzIj48cGF0aCBkPSJNMTIgMkM4LjEzIDIgNSA1LjEzIDUgOWMwIDUuMjUgNyAxMyA3IDEzczctNy43NSA3LTEzYzAtMy44Ny0zLjEzLTctNy03em0wIDkuNWMtMS4zOCAwLTIuNS0xLjEyLTIuNS0yLjVzMS4xMi0yLjUgMi41LTIuNSAyLjUgMS4xMiAyLjUgMi41LTEuMTIgMi41LTIuNSAyLjV6Ii8+PC9zdmc+" alt="Travel Nest Logo" class="navbar-logo">
+      <div class="logo-text">Travel Nest</div>
+    </div>
+    <div class="nav-links">
+      <div class="nav-item">
+        <a href="../html/index2.html"><i class="fas fa-home"></i> Home</a>
+      </div>
+      <div class="nav-item">
+        <a href="../html/search.html"><i class="fas fa-map-marked-alt"></i> Destinations</a>
+      </div>
+      <!-- <div class="nav-item">
+        <a href="#"><i class="fas fa-percent"></i> Offers</a>
+      </div> -->
+      <div class="nav-item">
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
+      </div>
+    </div>
+    <div class="user-actions">
+      <div class="profile-dropdown" style="display: block;">
+        <div class="profile-icon">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="dropdown-content">
+          <div class="user-info">
+            <span class="user-name">Sarah Johnson</span>
+            <span class="user-email">sarah.j@example.com</span>
+          </div>
+          <a href="#" class="active"><i class="fas fa-user"></i> My Profile</a>
+          <a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <h1>My Profile</h1>
+      <p>Manage your personal information and view your bookings</p>
+    </div>
+
+    <!-- Profile Content -->
+    <div class="profile-content">
+      <!-- User Info Card -->
+      <div class="user-info-card">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9IiMyMTk2RjMiPjxwYXRoIGQ9Ik0xMiAxMmM2LjYyMyAwIDEyIDUuMzc3IDEyIDEycy01LjM3NyAxMi0xMiAxMi0xMi01LjM3Ny0xMi0xMiA1LjM3Ny0xMiAxMi0xMnptMCAyYy01LjUyIDAtMTAgNC40OC0xMCAxMHM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTAtNC40OC0xMC0xMC0xMHptMCAzYzMuODY2IDAgNyAzLjEzNCA3IDdzLTMuMTM0IDctNyA3LTctMy4xMzQtNy03IDMuMTM0LTcgNy03em0wIDJjLTIuNzYxIDAtNSA0LjQ3Ny01IDVzMi4yMzkgNSA1IDUgNS00LjQ3NyA1LTUtMi4yMzktNS01LTV6Ii8+PC9zdmc+" alt="Profile" class="profile-picture">
+        <h2 class="user-name">Sarah Johnson</h2>
+        <p class="user-email">sarah.j@example.com</p>
+        
+        <div class="user-details">
+          <div class="user-detail">
+            <div class="detail-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="detail-content">
+              <h3>Phone Number</h3>
+              <p>+1 (555) 123-4567</p>
+            </div>
+          </div>
+          
+          <div class="user-detail">
+            <div class="detail-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="detail-content">
+              <h3>Address</h3>
+              <p>123 Park Avenue, New York, NY 10022</p>
+            </div>
+          </div>
+          
+          <div class="user-detail">
+            <div class="detail-icon">
+              <i class="fas fa-user-tag"></i>
+            </div>
+            <div class="detail-content">
+              <h3>Member Since</h3>
+              <p>January 2024</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Bookings Section -->
+      <div class="bookings-section">
+        <h2 class="section-title">My Bookings</h2>
+        <div class="bookings-container" id="bookings-container">
+          <!-- Bookings will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="social-icons" id="contact">
+        <a href="https://www.instagram.com/travel_nest_?igsh=MWxqMWphajg2dnYweA==" aria-label="Instagram" class="social-icon-link">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://x.com/travel_nest_?t=4Hri1n9DHo1mdUUKHZKaPQ&s=09" aria-label="Twitter" class="social-icon-link">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/travel-nest-362096363?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn" class="social-icon-link">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <!-- <a href="#" aria-label="Facebook" class="social-icon-link">
+          <i class="fab fa-facebook-f"></i>
+        </a> -->
+      </div>
+      <div class="copyright">
+        © 2025 <span>TRAVELNEST PVT. LTD.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is logged in
+      const token = localStorage.getItem('token');
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      
+      if (!token || !isLoggedIn) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Fetch user data from localStorage
+      const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+      
+      // Update user info in the profile section
+      if (userData) {
+        // Update profile picture and name in navbar
+        const navbarUserName = document.querySelector('.dropdown-content .user-name');
+        const navbarUserEmail = document.querySelector('.dropdown-content .user-email');
+        if (navbarUserName) navbarUserName.textContent = userData.fullName || 'Not provided';
+        if (navbarUserEmail) navbarUserEmail.textContent = userData.email || 'Not provided';
+        
+        // Update main profile section
+        const profileName = document.querySelector('.user-info-card .user-name');
+        const profileEmail = document.querySelector('.user-info-card .user-email');
+        if (profileName) profileName.textContent = userData.fullName || 'Not provided';
+        if (profileEmail) profileEmail.textContent = userData.email || 'Not provided';
+        
+        // Update user details
+        const userDetails = document.querySelector('.user-details');
+        if (userDetails) {
+          userDetails.innerHTML = `
+            <div class="user-detail">
+              <div class="detail-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="detail-content">
+                <h3>Phone Number</h3>
+                <p>${userData.phone || 'Not provided'}</p>
+              </div>
+            </div>
+            
+            <div class="user-detail">
+              <div class="detail-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="detail-content">
+                <h3>Address</h3>
+                <p>${userData.address || 'Not provided'}</p>
+              </div>
+            </div>
+            
+            <div class="user-detail">
+              <div class="detail-icon">
+                <i class="fas fa-user-tag"></i>
+              </div>
+              <div class="detail-content">
+                <h3>Member Since</h3>
+                <p>${userData.joinDate ? new Date(userData.joinDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Not available'}</p>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      // Fetch booking data from localStorage
+      const finalBookingDetails = JSON.parse(localStorage.getItem('finalBookingDetails') || '{}');
+      displayBookings(finalBookingDetails);
+
+      function displayBookings(bookingData) {
+        const bookingsContainer = document.getElementById('bookings-container');
+        
+        if (!bookingData || !bookingData.resort) {
+          displayEmptyState();
+          return;
+        }
+
+        const { resort, booking, payment } = bookingData;
+        
+        // Calculate number of nights
+        const checkinDate = new Date(booking.checkin);
+        const checkoutDate = new Date(booking.checkout);
+        const nights = Math.round((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+        
+        // Format dates
+        const formatDate = (dateStr) => {
+          const date = new Date(dateStr);
+          return date.toLocaleDateString('en-US', { 
+            month: 'short', 
+            day: 'numeric', 
+            year: 'numeric' 
+          });
+        };
+
+        bookingsContainer.innerHTML = `
+          <div class="booking-card">
+            <div class="booking-image">
+              <img src="../src/${resort.imgSrc}" alt="${resort.title}">
+            </div>
+            <div class="booking-details">
+              <div class="booking-status status-confirmed">Confirmed</div>
+              <h3 class="booking-resort-name">${resort.title}</h3>
+              
+              <div class="booking-dates">
+                <div class="date-item">
+                  <i class="fas fa-calendar-check"></i>
+                  <span>Check-in: ${formatDate(booking.checkin)}</span>
+                </div>
+                <div class="date-item">
+                  <i class="fas fa-calendar-times"></i>
+                  <span>Check-out: ${formatDate(booking.checkout)}</span>
+                </div>
+              </div>
+              
+              <div class="booking-info-grid">
+                <div class="info-item">
+                  <i class="fas fa-users"></i>
+                  <div>
+                    <div class="info-label">Guests</div>
+                    <div class="info-value">${booking.adults} Adults, ${booking.children} Children</div>
+                  </div>
+                </div>
+                
+                <div class="info-item">
+                  <i class="fas fa-door-open"></i>
+                  <div>
+                    <div class="info-label">Rooms</div>
+                    <div class="info-value">${booking.rooms}</div>
+                  </div>
+                </div>
+                
+                <div class="info-item">
+                  <i class="fas fa-moon"></i>
+                  <div>
+                    <div class="info-label">Nights</div>
+                    <div class="info-value">${nights}</div>
+                  </div>
+                </div>
+                
+                <div class="info-item">
+                  <i class="fas fa-hotel"></i>
+                  <div>
+                    <div class="info-label">Resort ID</div>
+                    <div class="info-value">${resort.id || 'N/A'}</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="booking-price">₹${payment.totalAmount.toLocaleString()}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      function displayEmptyState() {
+        const bookingsContainer = document.getElementById('bookings-container');
+        bookingsContainer.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-suitcase-rolling"></i>
+            <h3>No Bookings Yet</h3>
+            <p>You haven't booked any resorts yet. Start planning your next getaway!</p>
+            <a href="search.html" class="explore-btn">Explore Resorts</a>
+          </div>
+        `;
+      }
+
+      // Handle logout
+      document.getElementById('logout-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.removeItem('token');
+        localStorage.removeItem('userData');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('finalBookingDetails');
+        window.location.href = 'login.html';
+      });
+    });
+  </script>
+</body>
+</html>

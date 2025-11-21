@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Your Booking - Travel Nest</title>
+  <link rel="stylesheet" href="../css/resort.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2196F3;
+      --primary-dark: #1976D2;
+      --success-color: #4CAF50;
+      --warning-color: #FFC107;
+      --danger-color: #f44336;
+      --text-color: #333;
+      --text-light: #666;
+      --background-color: #f5f5f5;
+      --white: #ffffff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --border-radius: 12px;
+    }
+
+    body {
+      background-color: var(--background-color);
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+    }
+
+    .booking-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .booking-header {
+      text-align: center;
+      margin-top:7rem;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .booking-header h1 {
+      font-size: 2.5rem;
+      color: var(--text-color);
+      margin-bottom: 1rem;
+    }
+
+    .booking-header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    .booking-content {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 2rem;
+    }
+
+    .booking-details {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .resort-card {
+      display: flex;
+      gap: 2rem;
+      padding-bottom: 2rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .resort-image {
+      width: 300px;
+      height: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .resort-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .resort-info {
+      flex: 1;
+    }
+
+    .resort-info h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+
+    .resort-info p {
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .resort-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .resort-rating .stars {
+      color: #FFD700;
+    }
+
+    .booking-details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .detail-card {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      transition: transform 0.3s ease;
+    }
+
+    .detail-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .detail-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .detail-card h3 i {
+      color: var(--primary-color);
+    }
+
+    .detail-card .value {
+      font-size: 1.1rem;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .selected-packages {
+      margin-top: 2rem;
+    }
+
+    .selected-packages h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-color);
+    }
+
+    .package-card {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border: 1px solid #eee;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .package-card:hover {
+      transform: translateX(5px);
+    }
+
+    .remove-package-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--danger-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+
+    .package-card:hover .remove-package-btn {
+      opacity: 1;
+    }
+
+    .remove-package-btn:hover {
+      transform: scale(1.1);
+      background: #d32f2f;
+    }
+
+    .remove-package-btn i {
+      font-size: 1rem;
+    }
+
+    .package-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    .package-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+
+    .package-info {
+      flex: 1;
+    }
+
+    .package-info p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .package-highlights,
+    .package-inclusions {
+      margin-bottom: 1rem;
+    }
+
+    .package-highlights h4,
+    .package-inclusions h4 {
+      font-size: 1rem;
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .package-highlights ul,
+    .package-inclusions ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .package-highlights li,
+    .package-inclusions li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .package-highlights i,
+    .package-inclusions i {
+      color: var(--primary-color);
+    }
+
+    .package-price {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .package-info small {
+      display: block;
+      color: var(--text-light);
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+
+    .payment-summary {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 2rem;
+    }
+
+    .payment-summary h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #eee;
+      color: var(--text-color);
+    }
+
+    .price-breakdown {
+      margin-bottom: 2rem;
+    }
+
+    .price-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    .price-item.total {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-color);
+      padding-top: 1rem;
+      border-top: 2px solid #eee;
+      margin-top: 1rem;
+    }
+
+    .continue-payment {
+      width: 100%;
+      padding: 1.2rem;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .continue-payment:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+    }
+
+    .continue-payment i {
+      font-size: 1.3rem;
+    }
+
+    .booking-steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-light);
+    }
+
+    .step.active {
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+
+    .step.completed {
+      color: var(--success-color);
+    }
+
+    .step i {
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 1024px) {
+      .booking-content {
+        grid-template-columns: 1fr;
+      }
+
+      .resort-card {
+        flex-direction: column;
+      }
+
+      .resort-image {
+        width: 100%;
+        height: 250px;
+      }
+
+      .payment-summary {
+        position: static;
+        margin-top: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .booking-details-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-steps {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .step {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 4px;
+        background: #f8f9fa;
+      }
+    }
+
+    .user-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .profile-dropdown {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .profile-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      transition: background-color 0.3s ease;
+    }
+
+    .profile-icon i {
+      font-size: 1.5rem;
+      color: #008cff;
+    }
+
+    .profile-icon:hover {
+      background: #e0e0e0;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: white;
+      min-width: 200px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 8px 0;
+      z-index: 1000;
+    }
+
+    .user-info {
+      padding: 12px 20px;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 8px;
+    }
+
+    .user-info .user-name {
+      display: block;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .user-info .user-email {
+      display: block;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .profile-dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      color: #333;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+      background: #f5f5f5;
+    }
+
+    .dropdown-content i {
+      font-size: 1.1rem;
+      color: #008cff;
+    }
+
+    @media (max-width: 768px) {
+      .user-actions {
+        margin: 10px 0;
+        justify-content: center;
+      }
+      
+      .profile-dropdown {
+        position: static;
+      }
+      
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+        background: transparent;
+        width: 100%;
+      }
+      
+      .dropdown-content a {
+        justify-content: center;
+        color: #333;
+      }
+      
+      .dropdown-content a:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+
+    @keyframes slideOut {
+      0% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="logo-container">
+    <img src="../src/logo.png" alt="Travel Nest Logo" class="navbar-logo">
+    <div class="logo-text">Travel Nest</div>
+  </div>
+  <div class="nav-links">
+    <div class="nav-item">
+      <a href="#"><i class="fas fa-home"></i> Home</a>
+    </div>
+    <div class="nav-item">
+      <a href="#destinations"><i class="fas fa-map-marked-alt"></i> Destinations</a>
+    </div>
+    <div class="nav-item">
+      <a href="#offers"><i class="fas fa-percent"></i> Offers</a>
+    </div>
+    <div class="nav-item">
+      <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
+    </div>
+  </div>
+  <div class="user-actions">
+    <button id="signin-btn" class="sign-in">Sign In</button>
+    <div class="profile-dropdown" style="display: none;">
+      <div class="profile-icon">
+        <i class="fas fa-user-circle"></i>
+      </div>
+      <div class="dropdown-content">
+        <div class="user-info">
+          <span class="user-name">Loading...</span>
+          <span class="user-email">Loading...</span>
+        </div>
+        <a href="/frontend/html/profile.html"><i class="fas fa-user"></i> My Profile</a>
+        <a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="booking-container">
+  <div class="booking-header">
+    <h1>Complete Your Booking</h1>
+    <p>Review your reservation details and proceed to payment</p>
+  </div>
+
+  <div class="booking-steps">
+    <div class="step completed">
+      <i class="fas fa-check-circle"></i>
+      <span>Select Resort</span>
+    </div>
+    <div class="step completed">
+      <i class="fas fa-check-circle"></i>
+      <span>Choose Dates</span>
+    </div>
+    <div class="step active">
+      <i class="fas fa-credit-card"></i>
+      <span>Payment</span>
+    </div>
+    <div class="step">
+      <i class="fas fa-check"></i>
+      <span>Confirmation</span>
+    </div>
+  </div>
+
+  <div class="booking-content">
+    <div class="booking-details">
+      <div class="resort-card">
+        <div class="resort-image">
+          <img id="resort-image" src="" alt="Resort Image">
+        </div>
+        <div class="resort-info">
+          <h2 id="resort-name">Loading...</h2>
+          <p id="resort-location">Loading...</p>
+          <div class="resort-rating">
+            <div class="stars" id="resort-stars"></div>
+            <span id="resort-rating"></span>
+            <span id="resort-reviews"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-details-grid">
+        <div class="detail-card">
+          <h3><i class="fas fa-calendar-check"></i> Check-in</h3>
+          <p class="value" id="check-in-date">Loading...</p>
+        </div>
+        <div class="detail-card">
+          <h3><i class="fas fa-calendar-times"></i> Check-out</h3>
+          <p class="value" id="check-out-date">Loading...</p>
+        </div>
+        <div class="detail-card">
+          <h3><i class="fas fa-users"></i> Guests</h3>
+          <p class="value" id="guests-info">Loading...</p>
+        </div>
+        <div class="detail-card">
+          <h3><i class="fas fa-door-open"></i> Rooms</h3>
+          <p class="value" id="rooms-info">Loading...</p>
+        </div>
+      </div>
+
+      <div class="selected-packages">
+        <h2>Selected Packages</h2>
+        <div id="packages-container">
+          <!-- Packages will be dynamically added here -->
+        </div>
+      </div>
+    </div>
+
+    <div class="payment-summary">
+      <h2>Payment Summary</h2>
+      <div class="price-breakdown">
+        <div class="price-item">
+          <span>Room Rate</span>
+          <span id="room-rate">₹0</span>
+        </div>
+        <div class="price-item">
+          <span>Number of Nights</span>
+          <span id="nights-count">0</span>
+        </div>
+        <div class="price-item">
+          <span>Number of Rooms</span>
+          <span id="rooms-count">0</span>
+        </div>
+        <div class="price-item">
+          <span>Package Charges</span>
+          <span id="package-charges">₹0</span>
+        </div>
+        <div class="price-item">
+          <span>Taxes & Fees</span>
+          <span id="taxes-fees">₹0</span>
+        </div>
+        <div class="price-item total">
+          <span>Total Amount</span>
+          <span id="total-amount">₹0</span>
+        </div>
+      </div>
+      <button class="continue-payment" id="continue-payment">
+        <i class="fas fa-lock"></i> Continue to Payment
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/test-booking.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get booking details from localStorage
+    const resort = JSON.parse(localStorage.getItem('selectedResort'));
+    const bookingDetails = JSON.parse(localStorage.getItem('bookingDetails'));
+
+    if (!resort || !bookingDetails) {
+      alert('Booking data missing! Please search again.');
+      window.location.href = 'search.html';
+      return;
+    }
+
+    // Update resort details
+    document.getElementById('resort-image').src = `../src/${resort.imgSrc}`;
+    document.getElementById('resort-name').textContent = resort.title;
+    document.getElementById('resort-location').textContent = resort.location;
+    
+    // Generate stars based on rating
+    const starsContainer = document.getElementById('resort-stars');
+    const rating = resort.rating || 0;
+    starsContainer.innerHTML = Array(5)
+      .fill('')
+      .map((_, i) => 
+        i < Math.floor(rating) 
+          ? '<i class="fas fa-star"></i>' 
+          : '<i class="far fa-star"></i>'
+      )
+      .join('');
+    
+    document.getElementById('resort-rating').textContent = `${rating.toFixed(1)}`;
+    document.getElementById('resort-reviews').textContent = `(${resort.reviews?.length || 0} reviews)`;
+
+    // Update booking details
+    document.getElementById('check-in-date').textContent = bookingDetails.checkin;
+    document.getElementById('check-out-date').textContent = bookingDetails.checkout;
+    document.getElementById('guests-info').textContent = `${bookingDetails.adults} Adults, ${bookingDetails.children} Children`;
+    document.getElementById('rooms-info').textContent = `${bookingDetails.rooms} Room(s)`;
+
+    // Calculate number of nights
+    const checkinDate = new Date(bookingDetails.checkin);
+    const checkoutDate = new Date(bookingDetails.checkout);
+    const nights = Math.round((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+    document.getElementById('nights-count').textContent = nights;
+
+    // Calculate room rate
+    const roomRate = resort.price * nights * bookingDetails.rooms;
+    document.getElementById('room-rate').textContent = `₹${roomRate.toLocaleString()}`;
+    document.getElementById('rooms-count').textContent = bookingDetails.rooms;
+
+    // Display and calculate package charges
+    const packagesContainer = document.getElementById('packages-container');
+    let totalPackageCharges = 0;
+
+    // Get selected package from localStorage
+    const selectedPackage = JSON.parse(localStorage.getItem('selectedPackage'));
+
+    if (selectedPackage) {
+      const packageCard = document.createElement('div');
+      packageCard.className = 'package-card';
+      
+      const packagePrice = selectedPackage.duration === 'per night' ? selectedPackage.price * nights : selectedPackage.price;
+      totalPackageCharges = packagePrice;
+
+      packageCard.innerHTML = `
+        <button class="remove-package-btn" title="Remove Package">
+          <i class="fas fa-times"></i>
+        </button>
+        <h3>${selectedPackage.name}</h3>
+        <div class="package-details">
+          <div class="package-info">
+            <p>${selectedPackage.description}</p>
+            <div class="package-highlights">
+              <h4>Highlights</h4>
+              <ul>
+                ${selectedPackage.highlights.map(highlight => `
+                  <li><i class="fas fa-check-circle"></i> ${highlight}</li>
+                `).join('')}
+              </ul>
+            </div>
+            <div class="package-inclusions">
+              <h4>Inclusions</h4>
+              <ul>
+                ${selectedPackage.inclusions.map(inclusion => `
+                  <li><i class="fas fa-check"></i> ${inclusion}</li>
+                `).join('')}
+              </ul>
+            </div>
+            <small>${selectedPackage.duration}</small>
+          </div>
+          <div class="package-price">₹${packagePrice.toLocaleString()}</div>
+        </div>
+      `;
+
+      // Add remove package functionality
+      const removeBtn = packageCard.querySelector('.remove-package-btn');
+      removeBtn.addEventListener('click', () => {
+        // Remove package from localStorage
+        localStorage.removeItem('selectedPackage');
+        
+        // Remove package card with animation
+        packageCard.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => {
+          packageCard.remove();
+          
+          // Update price calculations
+          totalPackageCharges = 0;
+          document.getElementById('package-charges').textContent = '₹0';
+          
+          // Recalculate taxes and total
+          const taxesAndFees = Math.round(roomRate * 0.18);
+          document.getElementById('taxes-fees').textContent = `₹${taxesAndFees.toLocaleString()}`;
+          
+          const totalAmount = roomRate + taxesAndFees;
+          document.getElementById('total-amount').textContent = `₹${totalAmount.toLocaleString()}`;
+          
+          // Update final booking details
+          const finalBookingDetails = {
+            resort: resort,
+            booking: bookingDetails,
+            payment: {
+              roomRate: roomRate,
+              taxesAndFees: taxesAndFees,
+              totalAmount: totalAmount,
+              nights: nights
+            }
+          };
+          localStorage.setItem('finalBookingDetails', JSON.stringify(finalBookingDetails));
+        }, 300);
+      });
+
+      packagesContainer.appendChild(packageCard);
+    } else {
+      packagesContainer.innerHTML = '<p>No packages selected</p>';
+    }
+
+    document.getElementById('package-charges').textContent = `₹${totalPackageCharges.toLocaleString()}`;
+
+    // Calculate taxes and fees (18% of room rate + package charges)
+    const taxesAndFees = Math.round((roomRate + totalPackageCharges) * 0.18);
+    document.getElementById('taxes-fees').textContent = `₹${taxesAndFees.toLocaleString()}`;
+
+    // Calculate total amount
+    const totalAmount = roomRate + totalPackageCharges + taxesAndFees;
+    document.getElementById('total-amount').textContent = `₹${totalAmount.toLocaleString()}`;
+
+    // Handle continue to payment button
+    document.getElementById('continue-payment').addEventListener('click', function() {
+      // Store final booking details
+      const finalBookingDetails = {
+        resort: resort,
+        booking: bookingDetails,
+        payment: {
+          roomRate: roomRate,
+          taxesAndFees: taxesAndFees,
+          totalAmount: totalAmount,
+          nights: nights
+        }
+      };
+      localStorage.setItem('finalBookingDetails', JSON.stringify(finalBookingDetails));
+      
+      // Redirect to thank you page
+      window.location.href = 'thankyou.html';
+    });
+  });
+
+  // Profile dropdown functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const signinBtn = document.getElementById('signin-btn');
+    const profileDropdown = document.querySelector('.profile-dropdown');
+    const logoutLink = document.getElementById('logout-link');
+    const userName = document.querySelector('.user-name');
+    const userEmail = document.querySelector('.user-email');
+
+    if (signinBtn && profileDropdown) {
+      if (isLoggedIn && userData) {
+        signinBtn.style.display = 'none';
+        profileDropdown.style.display = 'block';
+        
+        // Update user info in dropdown
+        if (userName) userName.textContent = userData.name || 'User';
+        if (userEmail) userEmail.textContent = userData.email || '';
+      } else {
+        signinBtn.style.display = 'inline-block';
+        profileDropdown.style.display = 'none';
+      }
+
+      // Sign in button click handler
+      signinBtn.addEventListener('click', () => {
+        window.location.href = '/frontend/html/signup.html';
+      });
+
+      // Logout link click handler
+      if (logoutLink) {
+        logoutLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('token');
+          localStorage.removeItem('userData');
+          window.location.href = '/frontend/html/login.html';
+        });
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

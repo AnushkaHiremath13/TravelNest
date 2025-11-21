@@ -1,0 +1,55 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f9fc;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .location,
+  .price,
+  .rating {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .images {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+  
+  .images img {
+    max-height: 200px;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+  
+  .amenities ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+  
+  .description {
+    margin-top: 1rem;
+  }
+  
+  .map {
+    margin-top: 2rem;
+  }
+  

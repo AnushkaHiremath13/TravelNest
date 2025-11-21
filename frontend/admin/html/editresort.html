@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Resort</title>
+  <link rel="stylesheet" href="../css/editresort.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Edit Resort</h2>
+    <form id="editResortForm" enctype="multipart/form-data">
+      <input type="text" name="title" id="title" placeholder="Resort Title" required />
+      <input type="text" name="location" id="location" placeholder="Location" required />
+      <input type="number" name="price" id="price" placeholder="Price per night" required />
+      <input type="number" step="0.1" name="rating" id="rating" placeholder="Rating (0-5)" required />
+      <input type="text" name="amenities" id="amenities" placeholder="Amenities (comma-separated)" required />
+      <textarea name="description" id="description" placeholder="Description" rows="4" required></textarea>
+      <input type="file" name="images" id="images" accept="image/*" multiple />
+      <button type="submit">Update</button>
+      <p id="statusMsg"></p>
+    </form>
+  </div>
+
+  <script src="../js/editresort.js"></script>
+</body>
+</html>

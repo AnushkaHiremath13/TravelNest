@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Nest - Sign Up</title>
+  <link rel="stylesheet" href="/frontend/css/signup.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <div class="logo">
+        <i class="fas fa-plane-departure"></i>
+        Travel Nest
+      </div>
+      <h2>Create Account</h2>
+
+      <form class="login-form" id="signupForm">
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input id="fullName" type="text" placeholder="Full Name" required>
+          <div class="input-feedback"></div>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input id="email" type="email" placeholder="Email Address" required>
+          <div class="input-feedback"></div>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-map-marker-alt"></i>
+          <input id="address" type="text" placeholder="Address" required>
+          <div class="input-feedback"></div>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-phone"></i>
+          <input id="phone" type="tel" placeholder="Phone Number" pattern="[0-9]{10}" required>
+          <div class="input-feedback"></div>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input id="signupPassword" type="password" placeholder="Password" required>
+          <i class="fas fa-eye-slash toggle-password"></i>
+          <div class="input-feedback"></div>
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input id="confirmPassword" type="password" placeholder="Confirm Password" required>
+          <i class="fas fa-eye-slash toggle-password"></i>
+          <div class="input-feedback"></div>
+        </div>
+
+      <!-- //terms and condition is not necessary
+      <div class="input-group terms">
+          <input id="terms" type="checkbox" required>
+          <label for="terms">I accept the <a href="#">Terms &amp; Conditions</a></label>
+        </div> -->
+
+        <button type="submit" class="login-btn">
+          <span class="btn-text">Sign Up</span>
+          <div class="loading-spinner" style="display:none;"></div>
+        </button>
+
+        <div class="divider" role="separator" aria-label="Or continue with social login">
+          <span class="divider-text">or sign up with</span>
+        </div>
+
+        <div class="social-login">
+          <button type="button" class="google-btn">
+            <i class="fab fa-google"></i>
+            <span>Google</span>
+          </button>
+          <button type="button" class="facebook-btn">
+            <i class="fab fa-facebook-f"></i>
+            <span>Facebook</span>
+          </button>
+        </div>
+
+        <p class="signup-link">
+          Already have an account? 
+          <a href="/frontend/html/login.html" class="signup-animation">Login</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const API_URL = 'http://localhost:5000/api/auth/register';
+      const form = document.getElementById("signupForm");
+      const pwdInput = document.getElementById("signupPassword");
+      const confirmPwdInput = document.getElementById("confirmPassword");
+      const toggleIcons = document.querySelectorAll(".toggle-password");
+      const submitBtn = form.querySelector(".login-btn");
+      const btnText = submitBtn.querySelector(".btn-text");
+      const spinner = submitBtn.querySelector(".loading-spinner");
+
+      // Show/hide password functionality
+      toggleIcons.forEach(icon => {
+        icon.addEventListener("click", () => {
+          const input = icon.previousElementSibling;
+          const isPwd = input.type === "password";
+          input.type = isPwd ? "text" : "password";
+          icon.classList.toggle("fa-eye");
+          icon.classList.toggle("fa-eye-slash");
+        });
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const fullName = document.getElementById("fullName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const address = document.getElementById("address").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const password = pwdInput.value;
+        const confirmPassword = confirmPwdInput.value;
+
+        // Validate form fields
+        if (!fullName || !email || !address || !phone || !password || !confirmPassword) {
+          alert("Please fill in all fields.");
+          return;
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          alert("Please enter a valid email address.");
+          return;
+        }
+
+        // Validate phone number (10 digits)
+        if (!/^\d{10}$/.test(phone)) {
+          alert("Phone number must be 10 digits.");
+          return;
+        }
+
+        // Validate password format
+        const passwordRegex = /^(?=.*[!@#$%^&*])(?=.*\d).{8,}$/;
+        if (!passwordRegex.test(password)) {
+          alert("Password must be at least 8 characters long and contain at least one special character and one number.");
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          alert("Passwords do not match.");
+          return;
+        }
+
+        // Show spinner while waiting for response
+        btnText.style.display = "none";
+        spinner.style.display = "block";
+
+        try {
+          const response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              fullName,
+              email,
+              address,
+              phone,
+              password
+            })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Registration failed");
+          }
+
+          // Store user data in localStorage
+          const userData = {
+            fullName,
+            email,
+            address,
+            phone,
+            joinDate: new Date().toISOString()
+          };
+          localStorage.setItem('userData', JSON.stringify(userData));
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('isLoggedIn', 'true');
+
+          alert("Registration successful! Redirecting to login...");
+          window.location.href = "/frontend/html/login.html";
+        } catch (err) {
+          alert(err.message || "Registration failed. Please try again.");
+        } finally {
+          btnText.style.display = "inline";
+          spinner.style.display = "none";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
